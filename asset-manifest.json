@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a65d059e.css",
+    "main.js": "/static/js/main.cff4b763.js",
+    "static/js/787.681848be.chunk.js": "/static/js/787.681848be.chunk.js",
+    "static/media/mainpage_tripplanner.png": "/static/media/mainpage_tripplanner.bca488340aa9bb56a0a4.png",
+    "static/media/mainpage_helpus.png": "/static/media/mainpage_helpus.d8a273e9f94efdfa2c51.png",
+    "static/media/jquery.png": "/static/media/jquery.58c1141e7e0c74709eea.png",
+    "static/media/spring.png": "/static/media/spring.a1f2f77519cc512a7b8b.png",
+    "static/media/nodejs.png": "/static/media/nodejs.d4770efa3d92248148d7.png",
+    "static/media/react.png": "/static/media/react.8c03fc40cf69692d370c.png",
+    "static/media/github.png": "/static/media/github.22cfdd1cba253783ce51.png",
+    "static/media/mariadb.png": "/static/media/mariadb.4afbf0cec50bfe370d60.png",
+    "static/media/css.png": "/static/media/css.463e319bad8e0edf1ef7.png",
+    "static/media/html.png": "/static/media/html.ff3cf75e3b7cbb4ea77c.png",
+    "static/media/oracle.png": "/static/media/oracle.f2e93a3a6bb66e38d2fe.png",
+    "index.html": "/index.html",
+    "main.a65d059e.css.map": "/static/css/main.a65d059e.css.map",
+    "main.cff4b763.js.map": "/static/js/main.cff4b763.js.map",
+    "787.681848be.chunk.js.map": "/static/js/787.681848be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a65d059e.css",
+    "static/js/main.cff4b763.js"
+  ]
+}
