@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta
+      name="description"
+      content="정제원 포트폴리오 — AI 여행 플래너 Planit, RGB-D 기반 DMS 등 풀스택·딥러닝 프로젝트."
+    />
+
+    <meta property="og:title" content="정제원 포트폴리오" />
+    <meta
+      property="og:description"
+      content="AI 여행 플래너 Planit, RGB-D 기반 DMS 등 풀스택·딥러닝 프로젝트."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cingdam.github.io/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>정제원 포트폴리오</title>
+
+    <!--
+      테마 깜빡임(FOUC) 방지.
+      React 가 마운트되기 전에 html.dark 를 미리 붙인다.
+      저장된 값이 없으면 OS 설정을 따른다 — useTheme.tsx 와 같은 규칙.
+    -->
+    <script>
+      (function () {
+        try {
+          var v = localStorage.getItem('portfolio-theme');
+          var dark =
+            v === 'dark' ||
+            (v !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>이 사이트를 보려면 JavaScript를 켜주세요.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

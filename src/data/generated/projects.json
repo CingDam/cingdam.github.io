@@ -1,0 +1,297 @@
+[
+  {
+    "repo": "TripAdviser",
+    "name": "Planit",
+    "tagline": "AI 기반 여행 일정 계획 서비스 — 도시를 고르고, 지도에서 장소를 담고, AI 플래너와 대화하며 동선을 완성한다.",
+    "description": "AI 기반 여행 일정 계획 서비스 — 도시를 고르고, 지도에서 장소를 담고, AI 플래너와 대화하며 동선을 완성한다.",
+    "period": "",
+    "role": "",
+    "stack": [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Zustand",
+      "TanStack Query",
+      "@vis.gl/react-google-maps",
+      "dnd-kit",
+      "Socket.IO Client",
+      "NestJS 11",
+      "TypeORM",
+      "Mongoose",
+      "Passport",
+      "Socket.IO"
+    ],
+    "features": [
+      {
+        "title": "AI 플래너 (챗봇)",
+        "description": "장소 추천 · 일정 분석 · 예산 추정 · 날씨 조회 · 두 장소 비교 — SSE 스트리밍 + tool 호출 기반 Agent"
+      },
+      {
+        "title": "일정 자동생성",
+        "description": "\"3박4일 오사카-교토\" 같은 요청으로 날짜별 일정 전체 생성, 꼭 가고 싶은 장소(must_visit) 강제 포함"
+      },
+      {
+        "title": "동선 정렬",
+        "description": "날짜별 담은 장소를 Gemini가 이동 효율 기준으로 재정렬, 중간 교통 거점(역) 자동 삽입"
+      },
+      {
+        "title": "3패널 에디터",
+        "description": "검색(좌) · 일정(중) · 지도(우) 구조, 드래그 앤 드롭 순서 변경, 일자별 색상 구분"
+      },
+      {
+        "title": "반응형",
+        "description": "데스크톱 3패널 유지, 모바일은 하단 탭바(검색·일정·지도)로 전환"
+      },
+      {
+        "title": "지도 연동",
+        "description": "Google Maps 위에 장소·마커·동선 표시, Places 검색"
+      },
+      {
+        "title": "커뮤니티",
+        "description": "게시글 · 댓글/대댓글 · 좋아요 · 이미지 첨부 · 일정 공유"
+      },
+      {
+        "title": "리뷰",
+        "description": "장소 리뷰 작성 · 평점 · 좋아요 · 이미지"
+      },
+      {
+        "title": "실시간 채팅",
+        "description": "도시별/1:1 채팅방, WebSocket(Socket.IO) + MongoDB 메시지 저장"
+      },
+      {
+        "title": "인증",
+        "description": "이메일 회원가입(인증코드) · JWT · Google/Kakao/Naver 소셜 로그인"
+      }
+    ],
+    "languages": [
+      {
+        "name": "TypeScript",
+        "bytes": 804210,
+        "percent": 81
+      },
+      {
+        "name": "Python",
+        "bytes": 182541,
+        "percent": 18.4
+      },
+      {
+        "name": "CSS",
+        "bytes": 4356,
+        "percent": 0.4
+      },
+      {
+        "name": "JavaScript",
+        "bytes": 1504,
+        "percent": 0.2
+      }
+    ],
+    "pushedAt": "2026-08-18T00:30:50Z",
+    "stars": 0,
+    "url": "https://github.com/CingDam/TripAdviser",
+    "featured": true,
+    "order": 1,
+    "thumbnail": "/projects/planit/planit_main.png",
+    "screenshots": [
+      "/projects/planit/planit_main.png",
+      "/projects/planit/planit_list.png"
+    ]
+  },
+  {
+    "repo": "DMS-Fusion",
+    "name": "DMS-Fusion",
+    "tagline": "RGB-D 카메라를 활용한 DMS 구현(스마트인재개개발원 프로젝트)",
+    "description": "RGB-D 카메라를 활용한 DMS 구현(스마트인재개개발원 프로젝트)",
+    "period": "2025.03.04 ~ 2025.03.20 (총 16일)",
+    "role": "FrontEnd로 UI/UX개발 및 구현, 화면 디자인 설계, 화면 설계서 제작 및 딥러닝 모델을 개발 하였습니다.",
+    "stack": [
+      "JavaScript",
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "Milvus",
+      "MySQL",
+      "PyTorch",
+      "OpenCV"
+    ],
+    "features": [
+      {
+        "title": "깊이 보정",
+        "description": "DepthAnything V2와 Orbbec Astro + 를 활용하여 Astro + 가 찍지못한 공간을 DepthAnything V2의 MDE를 활용하여 빈 값을 채우고 실측치랑 맞게 보정을 해줌"
+      },
+      {
+        "title": "얼굴 인증",
+        "description": "안티 스푸핑을 넣어 핸드폰 사진으로 인증할 경우 막도록 하였음"
+      },
+      {
+        "title": "2차 비번",
+        "description": "얼굴 인증이 안되거나 대리운전자 경우를 위해 기능을 추가"
+      },
+      {
+        "title": "DMS",
+        "description": "실시간 스트리밍을 통해 졸음 탐지 및 주의 분산을 탐지 함"
+      }
+    ],
+    "languages": [
+      {
+        "name": "Jupyter Notebook",
+        "bytes": 3775154,
+        "percent": 92.1
+      },
+      {
+        "name": "Python",
+        "bytes": 210640,
+        "percent": 5.1
+      },
+      {
+        "name": "JavaScript",
+        "bytes": 78955,
+        "percent": 1.9
+      },
+      {
+        "name": "CSS",
+        "bytes": 28456,
+        "percent": 0.7
+      },
+      {
+        "name": "TypeScript",
+        "bytes": 5982,
+        "percent": 0.1
+      }
+    ],
+    "pushedAt": "2026-03-31T01:37:16Z",
+    "stars": 0,
+    "url": "https://github.com/CingDam/DMS-Fusion",
+    "featured": true,
+    "order": 2,
+    "thumbnail": "/projects/dms/main.png",
+    "screenshots": [
+      "/projects/dms/main.png",
+      "/projects/dms/setting-menu.png",
+      "/projects/dms/seat-set.png"
+    ]
+  },
+  {
+    "repo": "Helpus",
+    "name": "Helpus",
+    "tagline": "하이퍼 로컬 기반 기업과 사용자간의 매칭해주는 심부름 사이트",
+    "description": "하이퍼 로컬 기반 기업과 사용자간의 매칭해주는 심부름 사이트",
+    "period": "2022.04.03 ~ 2022.06.05",
+    "role": "팀장 / FrontEnd(퍼블리싱 및 UI/UX 구현) / 1:1 채팅 구현",
+    "stack": [
+      "Spring",
+      "JavaScript",
+      "jQuery",
+      "MariaDB",
+      "JSP"
+    ],
+    "features": [
+      {
+        "title": "1:1 채팅",
+        "description": "WebScoket을 활용하여 사용자와 사업자간의 1:1채팅을 구현 하였음"
+      },
+      {
+        "title": "사업자 페이지",
+        "description": "사업자 페이지를 따로 제작하여 사업자가 손쉽게 매출과 계약 상황을 볼 수 있도록 구현"
+      },
+      {
+        "title": "계약서",
+        "description": "사업자가 사용자한테 보낼 때 사이트 내에서 제공하는 플랫폼으로 계약서를 직접 작성하여 관리에 용이하도록 구현"
+      }
+    ],
+    "languages": [
+      {
+        "name": "JavaScript",
+        "bytes": 836538,
+        "percent": 50.6
+      },
+      {
+        "name": "CSS",
+        "bytes": 536641,
+        "percent": 32.5
+      },
+      {
+        "name": "Java",
+        "bytes": 278598,
+        "percent": 16.9
+      },
+      {
+        "name": "SCSS",
+        "bytes": 753,
+        "percent": 0
+      }
+    ],
+    "pushedAt": "2025-04-08T06:29:50Z",
+    "stars": 1,
+    "url": "https://github.com/CingDam/Helpus",
+    "featured": false,
+    "order": 3,
+    "thumbnail": "/thumbnail/mainpage_helpus.png",
+    "screenshots": [
+      "/projects/helpus/main.png",
+      "/projects/helpus/com_main.png",
+      "/projects/helpus/contract.png",
+      "/projects/helpus/chat.png",
+      "/projects/helpus/chat_2.png"
+    ]
+  },
+  {
+    "repo": "TripPlanner",
+    "name": "TripPlanner",
+    "tagline": "지도에서 숙소와 여행지를 담아 일정을 만드는 여행 계획 서비스",
+    "description": "여행 가기 전에 일일이 찾아가면서 일정을 짜기 힘들기 때문에, 지도에서 손쉽게 숙소나 여행지를 찾아 일정을 만들 수 있는 사이트입니다.",
+    "period": "2022.06",
+    "role": "기획 · 프론트엔드 · 백엔드 (1인 개발)",
+    "kind": "개인 프로젝트",
+    "stack": [
+      "Spring Framework",
+      "JavaScript",
+      "jQuery",
+      "MariaDB",
+      "Google Maps Platform"
+    ],
+    "features": [
+      {
+        "title": "지도 기반 장소 검색",
+        "description": "Google Maps Platform 으로 숙소·여행지를 검색하고 지도에서 바로 확인"
+      },
+      {
+        "title": "일정 만들기",
+        "description": "검색한 장소를 담아 날짜별 여행 일정으로 구성"
+      },
+      {
+        "title": "회원 기능",
+        "description": "회원가입 · 로그인 후 개인 일정 저장"
+      }
+    ],
+    "languages": [
+      {
+        "name": "JavaScript",
+        "bytes": 114769,
+        "percent": 57
+      },
+      {
+        "name": "CSS",
+        "bytes": 51775,
+        "percent": 25.7
+      },
+      {
+        "name": "Java",
+        "bytes": 34803,
+        "percent": 17.3
+      }
+    ],
+    "pushedAt": "2022-06-23T18:18:48Z",
+    "stars": 1,
+    "url": "https://github.com/CingDam/TripPlanner",
+    "featured": false,
+    "order": 4,
+    "thumbnail": "/thumbnail/mainpage_tripplanner.png",
+    "screenshots": [
+      "/projects/tripplanner/main.png",
+      "/projects/tripplanner/Scheduel.png",
+      "/projects/tripplanner/Login.png",
+      "/projects/tripplanner/signup.png"
+    ]
+  }
+]

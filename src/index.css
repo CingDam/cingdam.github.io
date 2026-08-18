@@ -1,13 +1,131 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import 'tailwindcss';
+
+/* 클래스 기반 다크모드 — html.dark 일 때 dark: 유틸리티가 켜진다.
+   (시스템 값 자동 추종은 ThemeProvider 가 html 클래스를 붙여서 처리한다) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- 디자인 토큰 ----------
+   기존 포트폴리오의 파란 계열(#005281)을 브랜드 색으로 유지하되,
+   표면·글자 색은 테마에 따라 바뀌는 시맨틱 토큰으로 뺐다.
+*/
+@theme {
+  --color-brand-50: #f5f8fa;
+  --color-brand-100: #e3edf4;
+  --color-brand-200: #c2d8e6;
+  --color-brand-300: #8fb4cd;
+  --color-brand-400: #4d7f9f;
+  --color-brand-500: #005281; /* 기존 브랜드 블루 */
+  --color-brand-600: #01415f;
+  --color-brand-700: #062f45;
+  --color-brand-800: #0b1f2e;
+  --color-brand-900: #0b1220;
+  --color-brand-950: #060b14;
+
+  --font-sans: 'Noto Sans KR', ui-sans-serif, system-ui, sans-serif;
+
+  /* 아주 좁은 화면(작은 폰)에서 헤더 이름을 숨기기 위한 브레이크포인트 */
+  --breakpoint-xs: 30rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* ---------- 시맨틱 토큰 ----------
+   컴포넌트는 bg-surface / text-content 처럼 역할 이름만 쓰고,
+   실제 색은 여기서 테마별로 정한다.
+*/
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-content-subtle: var(--content-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-scrim: var(--scrim);
+}
+
+/* 라이트 (기본) */
+:root {
+  --canvas: #ffffff;
+  --surface: #f6f8fb;
+  --surface-raised: #ffffff;
+  --line: #dfe5ec;
+  --content: #0b1220;
+  --content-muted: #4a5568;
+  --content-subtle: #718096;
+  --accent: #00618f;
+  --accent-hover: #01476b;
+  --on-accent: #ffffff;
+
+  /* 모달 뒤를 덮는 막 — 라이트에서도 패널이 떠 보이도록 어둡게 깐다 */
+  --scrim: rgb(15 23 42 / 0.45);
+
+  /* 장식용 그라디언트 양 끝 — 테마마다 방향이 반대다 */
+  --glow-from: #e8f2f9;
+  --glow-to: #ffffff;
+}
+
+/* 다크 */
+.dark {
+  --canvas: #060b14;
+  --surface: #0b1220;
+  --surface-raised: #101a2b;
+  --line: rgba(255, 255, 255, 0.1);
+  --content: #f5f8fa;
+  --content-muted: #a9bccd;
+  --content-subtle: #6f8296;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --on-accent: #060b14;
+
+  --scrim: rgb(2 6 14 / 0.75);
+  --glow-from: #062f45;
+  --glow-to: #060b14;
+}
+
+/* ---------- 베이스 ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* 고정 헤더에 섹션 제목이 가리지 않도록 */
+    scroll-padding-top: 4.5rem;
+    /* 스크롤바·폼 컨트롤 등 브라우저 UI 도 테마를 따르게 */
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-canvas text-content font-sans antialiased;
+    /* 구버전에 있던 user-select:none 은 의도적으로 뺐다.
+       연락처(이메일·전화번호)를 복사할 수 없던 문제가 있었다. */
+  }
+
+  /* 키보드 포커스 링 — 접근성 */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer utilities {
+  /* 섹션 공통 가로 여백 */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+}
+
+/* 애니메이션을 원치 않는 사용자 존중 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

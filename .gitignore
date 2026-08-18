@@ -21,3 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# 빌드 산출물
+/dist
+
+# 스모크 테스트 스크린샷
+/screenshots
+
+# TypeScript 증분 빌드 캐시
+*.tsbuildinfo
