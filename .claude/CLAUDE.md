@@ -189,9 +189,19 @@ node scripts/smoke.mjs
 
 ## 배포 주의사항
 
-- `homepage` 는 `https://cingdam.github.io/` — 유저 페이지라 `vite.config.ts` 의 `base` 가 `/` 다.
-  프로젝트 페이지로 옮기면 `/<repo>/` 로 바꿔야 한다.
-- `gh-pages -d dist` 로 배포한다 (CRA 의 `build` 가 아니다).
+- 저장소 이름이 `cingdam.github.io` 라 **사용자 페이지**다.
+  `vite.config.ts` 의 `base` 는 `/` 가 맞다. (프로젝트 페이지로 옮기면 `/<repo>/` 로 바꿔야 한다.)
+- 소스는 `master`, 배포 결과는 `gh-pages` 브랜치.
+  Pages source 도 `gh-pages/` 로 설정돼 있다.
+- `npm run deploy`(= `gh-pages -d dist`) 로 배포한다. CRA 의 `build` 디렉터리가 아니다.
+- **배포 후 반드시 라이브 사이트를 확인한다** — `node scripts/smoke.mjs https://cingdam.github.io`
+- Pages 가 이전 빌드를 캐싱해 소스 `index.html` 이 그대로 서빙될 때가 있다
+  (자산이 전부 404 나고 `<script src="/src/main.tsx">` 가 보이면 이 상황).
+  그 경우 아래로 재빌드를 건다.
+
+  ```bash
+  gh api -X POST repos/cingdam/cingdam.github.io/pages/builds
+  ```
 
 ## 개인정보
 
@@ -202,7 +212,7 @@ node scripts/smoke.mjs
 
 경력·사실 관계라 임의로 작성하지 않는다. TODO 주석이 달려 있다.
 
-- `src/data/about.ts` — 자기소개 (작성됨), `ABOUT_FACTS`·`ABOUT_HIGHLIGHTS` 는 갱신 필요
+- `src/data/about.ts` — 자기소개 본문은 작성됨. `ABOUT_FACTS`(주소·학력)와
+  `ABOUT_HIGHLIGHTS` 는 2022년 기준이라 갱신이 필요하다.
 - `src/data/skills.ts` — 항목 구성과 `level` 값
 - `src/data/projects.ts` — TripPlanner 설명 (2022년 문구를 옮겨온 것)
-- Planit·DMS-Fusion 썸네일/스크린샷 — 아직 없어 플레이스홀더가 렌더된다

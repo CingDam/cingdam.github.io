@@ -78,7 +78,10 @@ npm run dev          # 개발 서버 → http://localhost:5173
 | `npm run build` | 타입 체크 + 프로덕션 빌드 → `dist/` |
 | `npm run preview` | 빌드 결과 미리보기 |
 | `npm run sync:projects` | GitHub 에서 프로젝트 데이터 갱신 |
-| `npm run deploy` | GitHub Pages 배포 |
+| `npm run deploy` | GitHub Pages 배포 (`gh-pages` 브랜치) |
+
+> 이 저장소는 사용자 페이지(`cingdam.github.io`)라 `vite.config.ts` 의 `base` 가 `/` 입니다.
+> 소스는 `master`, 배포 결과는 `gh-pages` 브랜치에 올라갑니다.
 
 ### 프로젝트 데이터 갱신
 
