@@ -61,6 +61,10 @@
   /* 모달 뒤를 덮는 막 — 라이트에서도 패널이 떠 보이도록 어둡게 깐다 */
   --scrim: rgb(15 23 42 / 0.45);
 
+  /* 고정 헤더 높이(h-16 = 4rem) + 진행바. 스크롤 오프셋을 한 곳에서 정한다 —
+     scroll-padding 과 섹션의 scroll-margin 이 각각 달라 152px 이 겹쳐 밀린 적이 있다. */
+  --header-h: 4.125rem;
+
   /* 장식용 그라디언트 양 끝 — 테마마다 방향이 반대다 */
   --glow-from: #e8f2f9;
   --glow-to: #ffffff;
@@ -89,7 +93,7 @@
   html {
     scroll-behavior: smooth;
     /* 고정 헤더에 섹션 제목이 가리지 않도록 */
-    scroll-padding-top: 4.5rem;
+    scroll-padding-top: var(--header-h);
     /* 스크롤바·폼 컨트롤 등 브라우저 UI 도 테마를 따르게 */
     color-scheme: light;
   }
@@ -99,6 +103,7 @@
 
   body {
     @apply bg-canvas text-content font-sans antialiased;
+
     /* 구버전에 있던 user-select:none 은 의도적으로 뺐다.
        연락처(이메일·전화번호)를 복사할 수 없던 문제가 있었다. */
   }
@@ -114,6 +119,112 @@
   .container-page {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
+}
+
+/* ---------- 카드 표면 ----------
+   섹션 배경을 canvas ↔ surface 로 교차시키면서, 카드를 항상 `bg-surface` 로
+   두면 surface 섹션 위에서 카드가 배경에 묻힌다 (라이트에서 특히 안 보였다).
+   섹션이 자기 위에 놓일 카드 색을 --card / --card-raised 로 알려 주고
+   카드는 그 변수만 쓴다. 두 톤 어디에 놓여도 대비가 유지된다. */
+section {
+  --card: var(--surface);
+  --card-raised: var(--surface-raised);
+}
+section[data-tone='surface'] {
+  --card: var(--canvas);
+  --card-raised: var(--surface-raised);
+}
+.dark section[data-tone='surface'] {
+  /* 다크에서는 canvas 가 surface 보다 어두워 카드가 파여 보인다 — 한 단계 올린다 */
+  --card: var(--surface-raised);
+  --card-raised: #16233a;
+}
+
+@layer utilities {
+  .bg-card {
+    background-color: var(--card);
+  }
+  .hover\:bg-card-raised:hover {
+    background-color: var(--card-raised);
+  }
+}
+
+/* ---------- 스크롤 스냅 ----------
+   섹션이 화면에 딱 맞게 맞춰지며 "페이지가 넘어가는" 느낌을 만든다.
+
+   루트 스크롤러(html)에 건다. 별도 컨테이너에 걸면 body 스크롤이 죽어서
+   고정 헤더·주소창 자동 숨김·스크롤 복원이 전부 깨진다.
+
+   `mandatory` 를 쓴다. `proximity` 는 임계값이 너무 좁아 실제로는 거의 걸리지
+   않았다 (300px 굴리면 300px 에 그대로 멈춰 버려 전환 느낌이 안 났다).
+
+   `mandatory` 의 위험은 화면보다 긴 섹션에서 중간을 읽을 수 없게 되는 것이다.
+   지금은 모든 섹션이 한 화면에 들어와 해당 사항이 없다 (Projects 를 세로 나열에서
+   가로 4칸으로 바꾸면서 1593px → 870px 로 줄었다).
+   앞으로 화면보다 긴 섹션이 생기면 `snap="free"` 를 준다 — 높이를 강제하지 않아
+   위끝에 한 번 맞춰진 뒤에는 안에서 자유롭게 스크롤된다.
+
+   데스크톱 + 모션 허용일 때만 켠다. 모바일은 주소창 높이 변화와 겹쳐
+   스냅이 튀는 문제가 잦고, 화면이 좁아 섹션이 훨씬 길어진다. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+
+  section[data-snap='snap'] {
+    scroll-snap-align: start;
+  }
+
+  /* 화면보다 긴 섹션 — 위끝에만 걸리고, 사용자가 안을 읽는 동안은
+     다시 끌어당기지 않는다. `normal` 이라 통과해 지나갈 수도 있다. */
+  section[data-snap='free'] {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
+/* ---------- 스크롤바 숨김 ----------
+   스크롤 자체는 그대로 두고 막대만 감춘다.
+   `overflow: hidden` 으로 감추면 스크롤이 죽으므로 쓰지 않는다.
+
+   ⚠️ 루트 스크롤바를 숨기면 스크롤 가능하다는 단서가 사라진다.
+   Hero 의 아래 화살표 인디케이터가 그 역할을 대신하므로 유지할 것. */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 구 Edge */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome·Safari */
+}
+
+@layer utilities {
+  /* 모달 등 내부 스크롤 영역에 쓴다 */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- 책장 넘기기 전환 ----------
+   가로 이동만으로는 "미끄러진다" 에 가깝다. 세로축(Y) 회전을 얹어야
+   책장이 넘어가는 것처럼 보인다.
+
+   원근(`perspective`)은 **회전하는 요소의 부모**에 있어야 입체로 보인다.
+   회전 요소 자신에게 주면 평면 그대로다. */
+section {
+  perspective: 1600px;
+  perspective-origin: center center;
+}
+
+/* 가로 전환 연출은 섹션 밖으로 120px 움직인다.
+   `body { overflow-x: hidden }` 으로는 못 막는다 — 스크롤러가 html 이라
+   body 의 overflow 가 뷰포트로 전파돼 무시된다 (1440px 미만에서 실제로
+   가로 스크롤바가 120px 생겼다). 움직이는 요소를 감싼 섹션에서 잘라 낸다. */
+section {
+  overflow-x: clip;
 }
 
 /* 애니메이션을 원치 않는 사용자 존중 */

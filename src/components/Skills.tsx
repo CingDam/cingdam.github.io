@@ -11,7 +11,13 @@ export function Skills() {
   const active = SKILL_CATEGORIES.find((c) => c.id === activeId) ?? SKILL_CATEGORIES[0];
 
   return (
-    <Section id="skills" eyebrow="Skills" title="기술 스택">
+    <Section
+      id="skills"
+      eyebrow="Skills"
+      title="기술 스택"
+      lead="프론트엔드를 축으로 백엔드·데이터까지, 서비스를 끝까지 만들기 위해 다뤄 온 도구들입니다."
+      align="center"
+    >
       {/* 탭 — 구버전은 Subhead1~4 를 복붙했지만 여기서는 map 한 번이면 된다 */}
       <motion.div
         role="tablist"
@@ -20,7 +26,7 @@ export function Skills() {
         initial="hidden"
         whileInView="show"
         viewport={VIEWPORT}
-        className="flex flex-wrap gap-2"
+        className="flex flex-wrap justify-center gap-2"
       >
         {SKILL_CATEGORIES.map((c) => {
           const isActive = c.id === activeId;
@@ -61,7 +67,7 @@ export function Skills() {
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8"
         >
-          <p className="text-sm text-content-subtle">{active.description}</p>
+          <p className="text-center text-sm text-content-subtle">{active.description}</p>
 
           {/* 탭을 바꿀 때마다 아이콘이 하나씩 차례로 들어온다 */}
           <motion.ul
@@ -78,12 +84,18 @@ export function Skills() {
                 <motion.li
                   key={s.name}
                   variants={fadeUp}
-                  className="flex items-center gap-3 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40 hover:bg-surface-raised"
+                  className="flex items-center gap-3 rounded-xl border border-line bg-card p-4 transition-colors hover:border-accent/40 hover:bg-card-raised"
                 >
                   <span
                     aria-hidden="true"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                    style={{ backgroundColor: `${color}1a`, color }}
+                    /* 로고 색이 배경에 가까울 때(다크의 Next.js 등) 아이콘이 사라지지
+                       않도록 같은 색 테두리로 칩의 윤곽을 잡아 준다 */
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
+                    style={{
+                      backgroundColor: `${color}26`,
+                      borderColor: `${color}59`,
+                      color,
+                    }}
                   >
                     <Icon size={20} />
                   </span>

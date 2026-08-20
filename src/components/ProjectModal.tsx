@@ -88,7 +88,7 @@ export function ProjectModal({ project, onClose }: Props) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 24, scale: 0.98 }}
         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        className="relative max-h-[92svh] w-full max-w-4xl overflow-y-auto rounded-t-2xl border border-line bg-surface shadow-2xl sm:max-h-[88svh] sm:rounded-2xl"
+        className="no-scrollbar relative max-h-[92svh] w-full max-w-4xl overflow-y-auto rounded-t-2xl border border-line bg-surface shadow-2xl sm:max-h-[88svh] sm:rounded-2xl"
       >
         <button
           ref={closeRef}

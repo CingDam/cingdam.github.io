@@ -15,18 +15,37 @@ export function useActiveSection(ids: string[]): string {
       .filter((el): el is HTMLElement => el !== null);
     if (!els.length) return;
 
+    // 관찰 대상 전체의 최신 교차 상태를 들고 있다가 매번 다시 판정한다.
+    // entries 에 담긴 "이번에 바뀐 섹션" 만 보면, 섹션 높이가 줄어든 뒤
+    // 어느 섹션도 조건을 만족하지 않는 구간에서 직전 값이 그대로 남는다.
+    const ratio = new Map<string, number>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        // 화면에 걸친 섹션 중 가장 위에 있는 것을 고른다.
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
+        entries.forEach((e) => {
+          ratio.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0);
+        });
+
+        // 화면을 가장 많이 차지한 섹션을 활성으로 본다.
+        let best = '';
+        let bestRatio = 0;
+        ids.forEach((id) => {
+          const r = ratio.get(id) ?? 0;
+          if (r > bestRatio) {
+            bestRatio = r;
+            best = id;
+          }
+        });
+
+        // 맨 위(Hero 위쪽)에서는 첫 섹션을 유지한다.
+        if (best) setActive(best);
+        else if (window.scrollY < 100) setActive(ids[0] ?? '');
       },
       {
-        // 헤더 높이만큼 위를 깎고, 화면 중앙 위쪽에 걸릴 때 활성으로 본다.
-        rootMargin: '-72px 0px -55% 0px',
-        threshold: 0,
+        // 고정 헤더에 가려지는 만큼만 위를 깎는다.
+        rootMargin: '-72px 0px 0px 0px',
+        // 여러 단계를 관찰해야 "가장 많이 보이는 섹션" 을 비교할 수 있다.
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
       },
     );
 

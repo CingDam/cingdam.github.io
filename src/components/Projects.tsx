@@ -15,23 +15,20 @@ export function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
 
   return (
-    <Section id="projects" eyebrow="Project" title="프로젝트">
+    <Section id="projects" eyebrow="Project" title="프로젝트" tone="surface">
       {/* 카드가 한 덩어리로 나타나지 않고 하나씩 차례로 올라온다 */}
       <motion.div
         variants={staggerParent(0.12)}
         initial="hidden"
         whileInView="show"
         viewport={VIEWPORT}
-        className="grid gap-5 sm:grid-cols-2"
+        /* 가로 4칸 한 줄. 예전에는 대표작이 `sm:col-span-2` 로 한 줄을 통째로 써서
+           세로로 길게 쌓였고(1593px), 한 화면에 안 들어와 스냅에서 빼야 했다.
+           폭을 균등하게 나누면 한 화면에 들어와 Projects 도 스냅 대상이 된다. */
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5"
       >
         {projects.map((p) => (
-          <ProjectCard
-            key={p.repo}
-            project={p}
-            onOpen={() => setSelected(p)}
-            // 대표작은 한 줄을 통째로 쓴다
-            className={p.featured ? 'sm:col-span-2' : ''}
-          />
+          <ProjectCard key={p.repo} project={p} onOpen={() => setSelected(p)} />
         ))}
       </motion.div>
 
@@ -47,29 +44,26 @@ export function Projects() {
 interface CardProps {
   project: Project;
   onOpen: () => void;
-  className?: string;
 }
 
-function ProjectCard({ project, onOpen, className = '' }: CardProps) {
+function ProjectCard({ project, onOpen }: CardProps) {
   const { featured } = project;
 
   return (
     // 바깥 요소는 부모 stagger 를 따라 등장만 담당한다.
     <motion.article
       variants={fadeUp}
-      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-accent/40 ${className}`}
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card transition-colors hover:border-accent/40"
     >
       {/* hover 는 안쪽에서 따로 처리한다 — 같은 요소에 두면 등장 애니메이션과 충돌한다 */}
       <motion.div
         whileHover={{ y: -6 }}
         transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-        className={featured ? 'sm:flex sm:items-stretch' : ''}
+        className="flex h-full flex-col"
       >
         {/* 썸네일 — 없으면 이니셜 플레이스홀더 */}
         <div
-          className={`relative overflow-hidden bg-surface ${
-            featured ? 'aspect-video sm:aspect-auto sm:w-1/2' : 'aspect-video'
-          }`}
+          className="relative aspect-video overflow-hidden bg-card"
         >
           {project.thumbnail ? (
             <img
@@ -95,7 +89,7 @@ function ProjectCard({ project, onOpen, className = '' }: CardProps) {
         </div>
 
         {/* 본문 */}
-        <div className={`flex flex-1 flex-col p-5 sm:p-6 ${featured ? 'sm:w-1/2' : ''}`}>
+        <div className="flex flex-1 flex-col p-4 sm:p-5">
           <div className="flex items-center gap-2 text-xs text-content-subtle">
             <span>{formatMonth(project.pushedAt)}</span>
             {project.kind && (
@@ -114,13 +108,11 @@ function ProjectCard({ project, onOpen, className = '' }: CardProps) {
             )}
           </div>
 
-          <h3 className="mt-2 text-xl font-bold text-content sm:text-2xl">{project.name}</h3>
+          <h3 className="mt-2 text-lg font-bold text-content xl:text-xl">{project.name}</h3>
 
           {project.tagline && (
             <p
-              className={`mt-2 text-sm leading-relaxed text-content-muted ${
-                featured ? '' : 'line-clamp-2'
-              }`}
+              className="mt-2 line-clamp-2 text-sm leading-relaxed text-content-muted"
             >
               {project.tagline}
             </p>
@@ -128,7 +120,7 @@ function ProjectCard({ project, onOpen, className = '' }: CardProps) {
 
           {project.stack.length > 0 && (
             <ul className="mt-4 flex flex-wrap gap-1.5">
-              {project.stack.slice(0, featured ? 8 : 4).map((s) => (
+              {project.stack.slice(0, 3).map((s) => (
                 <li
                   key={s}
                   className="rounded-full border border-line bg-surface-raised px-2.5 py-1 text-xs text-content-muted"
@@ -136,16 +128,18 @@ function ProjectCard({ project, onOpen, className = '' }: CardProps) {
                   {s}
                 </li>
               ))}
-              {project.stack.length > (featured ? 8 : 4) && (
+              {project.stack.length > 3 && (
                 <li className="px-1 py-1 text-xs text-content-subtle">
-                  +{project.stack.length - (featured ? 8 : 4)}
+                  +{project.stack.length - 3}
                 </li>
               )}
             </ul>
           )}
 
           <div className="mt-5">
-            <LanguageBar languages={project.languages} showLabels={featured} max={4} />
+            {/* 카드 폭이 균등해졌으니 라벨도 균등하게 — `showLabels={featured}` 였을 때
+                대표작만 라벨이 붙어 카드 아랫단이 들쭉날쭉했다 */}
+            <LanguageBar languages={project.languages} showLabels max={3} />
           </div>
 
           <div className="mt-auto pt-5">

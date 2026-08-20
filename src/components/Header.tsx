@@ -29,7 +29,7 @@ export function Header() {
             정제원
           </a>
 
-          <ul className="flex min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto [scrollbar-width:none] sm:gap-2 [&::-webkit-scrollbar]:hidden">
+          <ul className="no-scrollbar flex min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto sm:gap-2">
             {SECTIONS.map((s) => {
               const isActive = active === s.id;
               return (

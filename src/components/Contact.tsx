@@ -8,7 +8,13 @@ const PHONE = '010-4153-6975';
 
 export function Contact() {
   return (
-    <Section id="contact" eyebrow="Contact" title="연락처">
+    <Section
+      id="contact"
+      eyebrow="Contact"
+      title="연락처"
+      lead="함께 일할 기회나 궁금한 점이 있다면 편하게 연락 주세요."
+      align="center"
+    >
       <motion.div
         variants={staggerParent(0.1)}
         initial="hidden"
@@ -58,7 +64,7 @@ function ContactCard({ icon, label, value, href, external }: CardProps) {
       variants={fadeUp}
       href={href}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : {})}
-      className="group flex items-center gap-4 rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent/40 hover:bg-surface-raised"
+      className="group flex items-center gap-4 rounded-xl border border-line bg-card p-5 transition-colors hover:border-accent/40 hover:bg-card-raised"
     >
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent">
         {icon}
